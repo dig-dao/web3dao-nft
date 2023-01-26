@@ -1,1 +1,5 @@
 .deps/*
+.env
+node_modules/
+cache
+artifacts
