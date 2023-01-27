@@ -16,7 +16,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.17",
-  defaultNetwork: "mumbai",
+  defaultNetwork: "polygonMumbai",
   networks: {
     goerli: {
       url: process.env.GOERLI_ALCHEMY_URL,
@@ -26,7 +26,7 @@ module.exports = {
       url: process.env.MAINNET_ALCHEMY_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
-    mumbai: {
+    polygonMumbai: {
       url: process.env.MUMBAI_ALCHEMY_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
@@ -41,7 +41,7 @@ module.exports = {
       rinkeby: process.env.ETHERSCAN_API_TOKEN,
       goerli: process.env.ETHERSCAN_API_TOKEN,
       mainnet: process.env.ETHERSCAN_API_TOKEN,
-      mumbai: process.env.POLYGONSCAN_API_TOKEN,
+      polygonMumbai: process.env.POLYGONSCAN_API_TOKEN,
       polygon: process.env.POLYGONSCAN_API_TOKEN,
     },
   },
