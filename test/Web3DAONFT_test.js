@@ -126,6 +126,24 @@ describe("Web3DAONFT", function () {
       expect(assertionError).to.be.true
     }
   })
+  it(`cannot mint to owner address`, async function () {
+    const toAddresses = [owner.address]
+    try {
+      await mintAndTransfer({
+        contract,
+        account: owner,
+        quantity: 1,
+        toAddresses,
+      })
+    } catch (err) {
+      assertionError = true
+      expect(err.reason).to.include(
+        `_toAddresses must NOT be included OWNER.`
+      )
+    } finally {
+      expect(assertionError).to.be.true
+    }
+  })
 })
 
 const initializeContract = async ({
