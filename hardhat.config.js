@@ -46,7 +46,7 @@ module.exports = {
     },
   },
   paths: {
-    tests: "./tests/contracts",
+    tests: "./test/",
   },
   mocha: {
     timeout: 1000 * 60 * 3, // 3min
