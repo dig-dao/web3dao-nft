@@ -9,7 +9,8 @@ const crypto = require("crypto")
 const SUBJECT_CONTRACT_NAME = "Web3DAOToken"
 const DEFAULT_TOKEN_NAME = "Web3 DAO NFT"
 const DEFAULT_TOKEN_SYMBOL = "W3DAO"
-const DEFAULT_MAX_BATCH_SIZE = 5
+const DEFAULT_MAX_BATCH_SIZE = 2
+const MAX_BATCH_SIZE = 5
 const DEFAULT_TOKEN_DESCRIPTION = "Awesome DAO NFT"
 
 describe("Web3DAONFT", function () {
@@ -48,6 +49,82 @@ describe("Web3DAONFT", function () {
       })
 
     })
+  })
+
+  it(`can batch mint MAX_BATCH_SIZE(${MAX_BATCH_SIZE}) tokens`, async function () {
+    const quantity = MAX_BATCH_SIZE
+    await setMaxBatchSize({
+      contract,
+      account: owner,
+      newMaxBatchSize: quantity,
+    })
+    await mintAndTransfer({
+      contract,
+      account: owner,
+      quantity,
+    })
+  })
+  it(`Non-owner cannot batch mint`, async function () {
+    try {
+      await mintAndTransfer({
+        contract,
+        account: alice,
+        quantity: DEFAULT_MAX_BATCH_SIZE,
+      })
+    } catch (err) {
+      assertionError = true
+      expect(err.reason).to.include(`Ownable: caller is not the owner`)
+    } finally {
+      expect(assertionError).to.be.true
+    }
+  })
+  it(`cannot mint in the case of addresses empty`, async function () {
+    try {
+      await mintAndTransfer({
+        contract,
+        account: owner,
+        quantity: DEFAULT_MAX_BATCH_SIZE,
+        toAddresses: [],
+      })
+    } catch (err) {
+      assertionError = true
+      expect(err.reason).to.include(`The _toAddresses is empty.`)
+    } finally {
+      expect(assertionError).to.be.true
+    }
+  })
+  it(`cannot mint more than maxBatchSize`, async function () {
+    try {
+      await mintAndTransfer({
+        contract,
+        account: owner,
+        quantity: DEFAULT_MAX_BATCH_SIZE + 1,
+      })
+    } catch (err) {
+      assertionError = true
+      expect(err.reason).to.include(
+        `The length of _toAddresses must be less than or equal to _maxBatchSize.`
+      )
+    } finally {
+      expect(assertionError).to.be.true
+    }
+  })
+  it(`cannot mint in the case of the different length of toAddresses and imageURIs`, async function () {
+    try {
+      await mintAndTransfer({
+        contract,
+        account: owner,
+        quantity: 1,
+        toAddresses: dummyAddresses.slice(0, 2),
+      })
+    } catch (err) {
+      assertionError = true
+      expect(err.reason).to.include(
+        `The length of _toAddresses and _imageURIs are NOT same.`
+      )
+    } finally {
+      expect(assertionError).to.be.true
+    }
   })
 })
 
@@ -97,6 +174,23 @@ const mintAndTransfer = async ({
     )
   return await mintTx.wait()
 }
+const getMaxBatchSize = async ({
+  contract,
+  account
+}) => {
+  return await contract.connect(account).getMaxBatchSize()
+}
+
+const setMaxBatchSize = async ({
+  contract,
+  account,
+  newMaxBatchSize
+}) => {
+  const tx = await contract.connect(account).setMaxBatchSize(newMaxBatchSize)
+  return await tx.wait()
+}
+
+
 const generateDummyUrls = (num = 5, urlPath = "") => {
   const template = "https://example.com"
   const items = []
