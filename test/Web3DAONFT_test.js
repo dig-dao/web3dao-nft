@@ -144,7 +144,52 @@ describe("Web3DAONFT", function () {
       expect(assertionError).to.be.true
     }
   })
+  describe("transferOwnership", function () {
+    it(`can transfer`, async function () {
+      await transferOwnership({
+        contract,
+        account: owner,
+        newOwner: alice.address,
+      })
+    })
+    it(`Non-owner cannot transfer`, async function () {
+      try {
+        await transferOwnership({
+          contract,
+          account: alice,
+          newOwner: bob.address,
+        })
+      } catch (err) {
+        assertionError = true
+        expect(err.reason).to.include(`Ownable: caller is not the owner`)
+      } finally {
+        expect(assertionError).to.be.true
+      }
+    })
+    it(`cannot transfer to a holder who has this token`, async function () {
+      await mintAndTransfer({
+        contract,
+        account: owner,
+        quantity: 1,
+        toAddresses: [bob.address],
+      })
+      try {
+        await transferOwnership({
+          contract,
+          account: owner,
+          newOwner: bob.address,
+        })
+      } catch (err) {
+        assertionError = true
+        expect(err.reason).to.include(`newOwner's balance must be zero.`)
+      } finally {
+        expect(assertionError).to.be.true
+      }
+    })
+  })
 })
+
+
 
 const initializeContract = async ({
   contractName = SUBJECT_CONTRACT_NAME,
@@ -205,6 +250,14 @@ const setMaxBatchSize = async ({
   newMaxBatchSize
 }) => {
   const tx = await contract.connect(account).setMaxBatchSize(newMaxBatchSize)
+  return await tx.wait()
+}
+const transferOwnership = async ({
+  contract,
+  account,
+  newOwner
+}) => {
+  const tx = await contract.connect(account).transferOwnership(newOwner)
   return await tx.wait()
 }
 
