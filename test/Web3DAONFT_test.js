@@ -47,7 +47,19 @@ describe("Web3DAONFT", function () {
         account: owner,
         quantity: DEFAULT_MAX_BATCH_SIZE,
       })
+    })
+  })
 
+  describe("mint to alice and bob", function () {
+    it(`can batch mint and transfer and call ownedCredential`, async function () {
+      await mintAndTransfer({
+        contract,
+        account: owner,
+        toAddresses: [alice.address, bob.address],
+        quantity: DEFAULT_MAX_BATCH_SIZE,
+      })
+      expect(await contract.ownerOf(0)).to.equal(alice.address)
+      expect(await contract.ownerOf(1)).to.equal(bob.address)
     })
   })
 
