@@ -38,7 +38,7 @@ contract Web3DAOToken is ERC721A, Ownable {
             requestNum == _externalURIs.length,
             "The length of _toAddresses and _externalURIs are NOT same."
         );
-        for (uint i = 0; i < requestNum; i++) {
+        for (uint256 i = 0; i < requestNum; i++) {
             address _to = _toAddresses[i];
             require(_to != owner(), "_toAddresses must NOT be included OWNER.");
         }
@@ -49,7 +49,7 @@ contract Web3DAOToken is ERC721A, Ownable {
 
         // do bulk transfer to each specified address only for the minted tokens
         uint256 tokenId = startTokenId;
-        for (uint i = 0; i < requestNum; i++) {
+        for (uint256 i = 0; i < requestNum; i++) {
             // transfer to the specified address
             safeTransferFrom(owner(), _toAddresses[i], tokenId);
             // update the token URI
@@ -86,7 +86,10 @@ contract Web3DAOToken is ERC721A, Ownable {
         string memory _externalURI
     ) public onlyOwner {
         // update the tokenURI
-        _setTokenURI(tokenId, generateTokenURI(_description, _imageURI, _externalURI));
+        _setTokenURI(
+            tokenId,
+            generateTokenURI(_description, _imageURI, _externalURI)
+        );
     }
 
     function getMaxBatchSize() public view onlyOwner returns (uint256) {
