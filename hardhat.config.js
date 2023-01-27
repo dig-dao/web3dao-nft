@@ -41,7 +41,7 @@ module.exports = {
       rinkeby: process.env.ETHERSCAN_API_TOKEN,
       goerli: process.env.ETHERSCAN_API_TOKEN,
       mainnet: process.env.ETHERSCAN_API_TOKEN,
-      polygonMumbai: process.env.POLYGONSCAN_API_TOKEN,
+      mumbai: process.env.POLYGONSCAN_API_TOKEN,
       polygon: process.env.POLYGONSCAN_API_TOKEN,
     },
   },
