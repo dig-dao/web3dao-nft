@@ -125,14 +125,17 @@ deployed to: 0x1C1448Faad97F779a39f5b8C7d88ff9b81b7d89b
 ### 7. mint
 
 Deploy したコントラクトを使って、NFT をミントし、配布します。
+テスト、本番それぞれで、`.env` の `NODE_ENV` および `CONTRACT_ADDRESS` を変える必要があります。
+
 配布先及び配布画像は、members.json というファイルに記載します。`members.json.example` というファイルを参考に、作成してください。
-テスト、本番それぞれで、`.envz` の `NODE_ENV` および `CONTRACT_ADDRESS` を変える必要があります。
+
+各項目の解説：
 
 - address: NFTを配布するWalletのアドレス
 - image_uri: イメージ画像。ipfs 上のファイルを指定する場合、 "ipfs://" から入力してください。
 - external_uri: NFT からリンクする先のURL
 
-配布は、mint.js を使います。オプションを付けない場合、`--dry-run=true` となり、ガス代の予測が可能です。
+配布には、`mint.js` を使います。オプションを付けない場合、`--dry-run=true` となり、ガス代の予測が可能です。
 
 ```bash
 node scripts/mint.js ./members.json
