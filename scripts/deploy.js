@@ -6,13 +6,15 @@
 //
 
 const hre = require("hardhat")
-const MAX_BATCH_SIZE = 5
-const TOKEN_NAME = "Web3 DAO NFT"
-const TOKEN_SYMBOL = "W3DAO"
+const {
+  MAX_BATCH_SIZE,
+  getTokenName,
+  getTokenSymbol
+} = require("./utils")
 
 const main = async () => {
   const contractFactory = await hre.ethers.getContractFactory("Web3DAOToken")
-  const contract = await contractFactory.deploy(TOKEN_NAME, TOKEN_SYMBOL, MAX_BATCH_SIZE)
+  const contract = await contractFactory.deploy(getTokenName(), getTokenSymbol(), MAX_BATCH_SIZE)
   await contract.deployed()
   console.log("deployed to:", contract.address)
 }
