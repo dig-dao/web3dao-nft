@@ -152,7 +152,6 @@ async function main() {
   const mintBatches = createMintBatches({
     members
   })
-  console.log(mintBatches)
   const totalBatch = mintBatches.length
   let batchIndex = 0
 

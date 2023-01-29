@@ -15,14 +15,16 @@ const {
   POLYGON_ALCHEMY_URL,
   MUMBAI_ALCHEMY_URL,
   ETHERSCAN_API_TOKEN,
+  TOKEN_NAME,
+  TOKEN_SYMBOL,
+  TOKEN_DESCRIPTION_EN,
+  TOKEN_DESCRIPTION_JA,
+  MAX_BATCH_SIZE
 } = process.env
 
 // =============================================================
 // Constants or like constants
 // =============================================================
-
-// max batch size when bulk mint and transfer
-const MAX_BATCH_SIZE = 5
 
 const isProduction = () => {
   return NODE_ENV === "mainnet" || NODE_ENV === "production" || NODE_ENV === "polygon"
@@ -98,19 +100,19 @@ const getTokenSymbolFromEnv = () => {
 }
 
 const getTokenName = () => {
-  return "Web3 DAO NFT"
+  return TOKEN_NAME
 }
 
 const getTokenSymbol = () => {
-  return "W3DAO"
+  return TOKEN_SYMBOL
 }
 
 const getTokenDescription = () => {
-  return "Web3.0 研究会 DAO に関わる人に発行される NFT です。"
+  return TOKEN_DESCRIPTION_EN
 }
 
 const getTokenJapaneseDescription = () => {
-  return "This NFT is issued to those involved in the Web 3.0 Study Group DAO."
+  return TOKEN_DESCRIPTION_JA
 }
 
 const getOpenSeaDescription = () => {
@@ -139,25 +141,9 @@ function createMintBatches({
   members,
   batchSize = MAX_BATCH_SIZE,
 }) {
-  /**
-   * e.g.
-   *   > const array1 = [1,2,3,4,5,6]
-   *   > splitAtEqualNum(array1, 2)
-   *   => [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ]
-   *
-   *   > splitAtEqualNum(array1, 4)
-   *   => [ [ 1, 2, 3, 4 ], [ 5, 6 ] ]
-   */
-  function splitAtEqualNum([...array], size = 1) {
-    return array.reduce(
-      (pre, _current, index) =>
-      index % size ? pre : [...pre, array.slice(index, index + size)],
-      []
-    )
-  }
   let batches = []
-  for (const batch of splitAtEqualNum(members, batchSize)) {
-    batches.push(batch)
+  for (i = 0; i <= (members.length / batchSize); i++) {
+    batches.push(members.slice((i * batchSize), (i + 1) * batchSize))
   }
   return batches
 }
