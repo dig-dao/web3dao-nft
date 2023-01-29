@@ -1,0 +1,12 @@
+[
+  {
+    "address": "0x1234567890012345678901234567890012345678",
+    "image_uri": "ipfs://Qmb9UeteoiaF37noQQa8qmyVF7U4Wj6gytVEQXevKN9NxCg",
+    "external_uri": "https://example.com"
+  },
+  {
+    "address": "0x1234567890012345678901234567890012345679",
+    "image_uri": "ipfs://Qmb9UCEVhTF37noQQa8qmyVF7U4Wj6gytVEQXevKN9NxCg",
+    "external_uri": "https://example.com"
+  }
+]

@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "deploy:polygon": "npx hardhat run scripts/deploy.js --network polygon ",
+    "deploy:mumbai": "npx hardhat run scripts/deploy.js --network polygonMumbai ",
     "test": "npx hardhat test --network localhost"
   },
   "dependencies": {
