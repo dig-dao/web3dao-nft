@@ -167,10 +167,9 @@ node scripts/mint.js ./members.json --dry-run=false
 
 ### create member json from command line
 
-IPFS URL と website URL が同一の場合、 data/member-address.txt を元に members.json を作成できます。
-data/member-addresses.txt はWalletアドレスのリストです。
+IPFS URL と website URL が同一の場合、 `data/member-address.txt` を `data/members.json` を作成できます。
+`data/member-addresses.txt` はWalletアドレスのリストです。
 
 ```bash
 node scripts/create-member-file.js --ipfsUrl=ipfs://.... --websiteUrl https://...
 ```
-
