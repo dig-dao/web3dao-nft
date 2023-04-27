@@ -2,7 +2,8 @@
   "scripts": {
     "deploy:polygon": "npx hardhat run scripts/deploy.js --network polygon ",
     "deploy:mumbai": "npx hardhat run scripts/deploy.js --network polygonMumbai ",
-    "test": "npx hardhat test --network localhost"
+    "test": "npx hardhat test --network localhost",
+    "create-member-file": "node scripts/create-member-file.js"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.1",
@@ -14,6 +15,7 @@
     "@nomiclabs/hardhat-etherscan": "^3.1.5",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "chai": "^4.3.7",
+    "command-line-args": "^5.2.1",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "erc721a": "^4.2.3"
