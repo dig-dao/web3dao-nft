@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.1",
+    "axios": "^1.4.0",
     "hardhat": "^2.12.6"
   },
   "devDependencies": {
