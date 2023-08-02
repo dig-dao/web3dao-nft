@@ -165,11 +165,20 @@ node scripts/mint.js ./members.json --dry-run=false
 
 ## optional tools
 
-### create member json from command line
+### Create member json from command line
 
-IPFS URL と website URL が同一の場合、 `data/member-address.txt` を `data/members.json` を作成できます。
+IPFS URL と website URL が同一の場合、 `data/member-address.txt` から `data/members.json` を作成できます。
 `data/member-addresses.txt` はWalletアドレスのリストです。
 
 ```bash
-node scripts/create-member-file.js --ipfsUrl=ipfs://.... --websiteUrl https://...
+node scripts/create-member-file.js --ipfsUrl=ipfs://.... --websiteUrl=https://...
+```
+
+### Check new Guild members who doesn't have NFTs
+
+検索対象の Guild.xyz の Role ID を調べ、 `GUILD_ROLE_ID` として .env に入力してください。
+(IDは、Guild.xyz の当該ギルドのページを表示し、ソースコードから取得できます)
+
+```bash
+node scripts/unminted-addresses.js
 ```
