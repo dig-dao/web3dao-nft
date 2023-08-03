@@ -64,7 +64,7 @@ const getGasStationUrl = () => {
     case "polygon":
       return "https://gasstation.polygon.technology/v2"
     case "polygonMumbai":
-      return "https://gasstation-mumbai.matic.today/v2"
+      return "https://gasstation-testnet.polygon.technology/v2"
     default:
       return ethMainnetEndpoint
   }
