@@ -62,7 +62,7 @@ const getGasStationUrl = () => {
       // refs: https://docs.etherscan.io/v/goerli-etherscan/
       return ethMainnetEndpoint
     case "polygon":
-      return "https://gasstation-mainnet.matic.network/v2"
+      return "https://gasstation.polygon.technology/v2"
     case "polygonMumbai":
       return "https://gasstation-mumbai.matic.today/v2"
     default:
