@@ -3,7 +3,8 @@
     "deploy:polygon": "npx hardhat run scripts/deploy.js --network polygon ",
     "deploy:mumbai": "npx hardhat run scripts/deploy.js --network polygonMumbai ",
     "test": "npx hardhat test --network localhost",
-    "create-member-file": "node scripts/create-member-file.js"
+    "create-member-file": "node scripts/create-member-file.js",
+    "unminted-addresses": "node scripts/unminted-addresses.js"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.1",
